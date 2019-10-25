@@ -1,7 +1,7 @@
 class User
 {
-	String name, userID, password, phoneNumber, emailID;
-	int walletBalance;
+	private String name, userID, password, phoneNumber, emailID;
+	private int walletBalance;
 	User(String name, String userID, String password, String phoneNumber, String emailID, int walletBalance)
 	{
 		this.name = name;
@@ -11,31 +11,31 @@ class User
 		this.emailID = emailID;
 		this.walletBalance = walletBalance;
 	}
-	String getName()
+	public String getName()
 	{
 		return name;
 	}
-	String getUserID()
+	public String getUserID()
 	{
 		return userID;
 	}
-	String getPassword()
+	public String getPassword()
 	{
 		return password;
 	}
-	String getPhoneNumber()
+	public String getPhoneNumber()
 	{
 		return phoneNumber;
 	}
-	String getEmailID()
+	public String getEmailID()
 	{
 		return emailID;
 	}
-	int getWalletBalance()
+	public int getWalletBalance()
 	{
 		return walletBalance;
 	}
-	void setWalletBalance(int newWalletBalance)
+	public void setWalletBalance(int newWalletBalance)
 	{
 		walletBalance = newWalletBalance;
 	}
