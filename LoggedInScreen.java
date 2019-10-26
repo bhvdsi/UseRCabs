@@ -55,7 +55,7 @@ class LoggedInScreen extends JFrame
                 try
                 {
                     int tempAmount = Integer.parseInt(addWalletAmount.getText());
-                    if(user.getWalletBalance() < 0)
+                    if(tempAmount < 0)
                         errorLabel.setText("Please enter a valid amount!");
                     else
                     {
