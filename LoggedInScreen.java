@@ -64,6 +64,8 @@ class LoggedInScreen extends JFrame
                     int tempAmount = Integer.parseInt(addWalletAmount.getText());
                     if(tempAmount < 0)
                         errorLabel.setText("Please enter a valid amount!");
+                    else if(tempAmount > 1000000 || (tempAmount + user.getWalletBalance() > 1000000))
+                        errorLabel.setText("Maximum amount allowed is 1000000");
                     else
                     {
                         user.setWalletBalance(user.getWalletBalance() + tempAmount);
@@ -93,7 +95,7 @@ class LoggedInScreen extends JFrame
         thePanel.add(errorLabel);
         //set panel properties
         this.add(thePanel);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }
     //function to update and color the userWalletBalance Label
