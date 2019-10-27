@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class RegistrationScreen extends JFrame
 {
@@ -15,6 +17,13 @@ public class RegistrationScreen extends JFrame
         this.userList = userList;
         this.setTitle("Register New User");
         this.setSize(640, 480);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                Main.changeWindowCount(false);
+                super.windowClosed(e);
+            }
+        });
         thePanel = new JPanel(null);
         nameLabel = new JLabel("Name:");
         nameLabel.setBounds(0, 0, 320, 20);

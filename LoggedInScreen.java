@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 class LoggedInScreen extends JFrame
@@ -18,6 +20,13 @@ class LoggedInScreen extends JFrame
         this.user = user;
         this.setTitle(user.getName() + " - Cab Booking Screen");
         this.setSize(640, 480);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                Main.changeWindowCount(false);
+                super.windowClosed(e);
+            }
+        });
         //create the panel
         thePanel = new JPanel(null);
         //label to display user info

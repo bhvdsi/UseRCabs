@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class LoginScreen extends JFrame
 {
@@ -17,6 +19,13 @@ public class LoginScreen extends JFrame
         this.userList = userList;
         this.setTitle("Login");
         this.setSize(640, 480);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                Main.changeWindowCount(false);
+                super.windowClosed(e);
+            }
+        });
         thePanel = new JPanel(null);
         userIDLabel = new JLabel("UserID:");
         userIDLabel.setBounds(0, 0, 320, 20);
@@ -38,6 +47,7 @@ public class LoginScreen extends JFrame
                     User tempUser = userList.getUser(iUserID);
                     if(tempUser.checkPassword(iPassword))
                     {
+                        Main.changeWindowCount(true);
                         statusLabel.setText("<html><font color=\"green\">Login successful!</font></html>");
                         new LoggedInScreen(tempUser);
                     }
@@ -56,7 +66,9 @@ public class LoginScreen extends JFrame
         newUserButton.setBounds(220, 60, 200, 20);
         newUserButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+                Main.changeWindowCount(true);
                 new RegistrationScreen(userList);
             }
         });
