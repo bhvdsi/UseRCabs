@@ -21,7 +21,7 @@ class City                                                  // Define properties
         return Coordinates;
     }
 }
-public class Region
+public class Region implements java.io.Serializable
 {
     private ArrayList<City> listOfCities;                   // Store information regarding all cities in the region
     Region()
