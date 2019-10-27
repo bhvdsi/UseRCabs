@@ -119,11 +119,4 @@ class LoggedInScreen extends JFrame
                                             + String.valueOf(user.getWalletBalance())
                                             + "</font></html>");
     }
-    //main function to test the class
-    public static void main(String[] args)
-    {
-        User temp = new User("Pranav", "vnraap", "iamccgawd", "XXX", "@.com", 220);
-        new LoggedInScreen(temp);
-        System.out.println(temp.getWalletBalance());
-    }
 }
