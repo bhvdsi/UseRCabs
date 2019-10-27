@@ -1,4 +1,4 @@
-public class Driver
+public class Driver implements java.io.Serializable
 {
     private String name, phoneNumber, carType, carNumber, location;
     private double rating;
