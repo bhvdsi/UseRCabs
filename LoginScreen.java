@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainScreen extends JFrame
+public class LoginScreen extends JFrame
 {
     UserList userList;
     //add RegionList
@@ -12,7 +12,7 @@ public class MainScreen extends JFrame
     JTextField userIDField;
     JPasswordField passwordField;
     JButton loginButton, newUserButton;
-    MainScreen(UserList userList)
+    LoginScreen(UserList userList)
     {
         this.userList = userList;
         this.setTitle("Login");
