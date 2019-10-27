@@ -21,7 +21,8 @@ class City                                                  // Define properties
         return Coordinates;
     }
 }
-public class Region {
+public class Region
+{
     private ArrayList<City> listOfCities;                   // Store information regarding all cities in the region
     Region()
     {
