@@ -2,8 +2,8 @@ import java.io.*;
 
 public class DataHandler
 {
-    private String absolutePath, userListFile, regionFile, driverFile;
-    //private final String userListFile = "Users.ser", regionFile = "Region.ser", driverFile = "Driver.ser";
+    private String absolutePath, userListFile, regionFile, driverListFile;
+    //private final String userListFile = "Users.ser", regionFile = "Region.ser", driverListFile = "Driver.ser";
     DataHandler() throws IOException
     {
         try
@@ -11,7 +11,7 @@ public class DataHandler
             absolutePath = new File(".").getCanonicalPath();
             userListFile = absolutePath + File.separator + "Users.ser";
             regionFile = absolutePath + File.separator + "Region.ser";
-            driverFile = absolutePath + File.separator + "Drivers.ser";
+            driverListFile = absolutePath + File.separator + "Drivers.ser";
         }
         catch(Exception InvalidPath)
         {
@@ -47,13 +47,13 @@ public class DataHandler
             return null;
         }
     }
-    Driver readDriverList() throws IOException, ClassNotFoundException
+    DriverList readDriverList() throws IOException, ClassNotFoundException
     {
-        Driver newDriverList;
+        DriverList newDriverList;
         try
         {
-            ObjectInputStream input = new ObjectInputStream(new FileInputStream(driverFile));
-            newDriverList = (Driver) input.readObject();
+            ObjectInputStream input = new ObjectInputStream(new FileInputStream(driverListFile));
+            newDriverList = (DriverList) input.readObject();
             return newDriverList;
         }
         catch (Exception readFailed)
