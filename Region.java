@@ -1,111 +1,134 @@
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 class City                                                  // Define properties of a city
 {
     private String cityName;
     private int cityID;
-    private ArrayList<Integer> distanceToCities;
+    private TreeMap<Integer, Integer> distanceToCities;
     City(String cityName)
     {
         this.cityName = cityName;
         cityID = -1;
-    }
-    void setCityID(int cityID)
-    {
-        this.cityID = cityID;
+        distanceToCities = new TreeMap<>();
     }
     String getCityName()
     {
         return cityName;
     }
-    void setDistanceToCities(ArrayList<Integer> distanceToCities)
+    void setCityID(int cityID)
     {
-        this.distanceToCities = distanceToCities;
+        this.cityID = cityID;
     }
-    ArrayList<Integer> getDistancesToAllCities()
+    int getCityID()
     {
-        return distanceToCities;
+        return cityID;
     }
-    int getDistanceToCity(int cityID)
+    void setDistanceToCity(City toCity, int distance)
+    {
+        int toCityID = toCity.getCityID();
+        if(distanceToCities.containsKey(toCityID))
+            distanceToCities.replace(toCityID, distance);
+        else
+            distanceToCities.put(toCityID, distance);
+    }
+    int getDistanceToCity(City toCity)                 // Returns the distance to a city if a path exists, or else -1
     {
         try
         {
-            return distanceToCities.get(cityID);
+            int toCityID = toCity.getCityID();
+            return distanceToCities.getOrDefault(toCityID, -1);
         }
         catch(Exception E)
         {
-            System.err.println("Failed to get distance from City "+this.cityID+" to City "+cityID+"!" + E);
+            System.err.println("Failed to get distance from City "+this.cityName+" to City "+cityName+"!" + E);
             return -1;
         }
     }
 }
 public class Region implements java.io.Serializable
 {
-    private ArrayList<City> listOfCities;                   // Store information regarding all cities in the region
+    private TreeMap<String, City> mapOfCities;
     Region()
     {
-        listOfCities = new ArrayList<>();
+        mapOfCities = new TreeMap<>();
     }
     int getNumberOfCities()
     {
-        return listOfCities.size();
+        return mapOfCities.size();
     }
-    String getCityName(int cityID)
+    boolean addCity(City newCity)                           // Add city to the region list
     {
         try
         {
-            return listOfCities.get(cityID).getCityName();
-        }
-        catch(Exception E)
-        {
-            System.err.println("Failed to get name of City "+cityID+"!" + E);
-            return "";
-        }
-    }
-    void addCity(City newCity)                          // Add city to the region list
-    {
-        try
-        {
-            newCity.setCityID(getNumberOfCities());     // Allocate ID to city
-            listOfCities.add(newCity);
-        }
-        catch(Exception E)
-        {
-            System.err.println("Failed to add new City!" + E);
-        }
-    }
-    void calculateAllDistances(ArrayList<ArrayList<Integer>> cityDistances)             // Calculate and assign shortest paths between all cities given the shortest
-    {
-        final int numberOfCities=getNumberOfCities();
-        if(numberOfCities != cityDistances.size())                                      // Safety check that the distances provided align with the number of cities present.
-        {
-            System.err.println("Unable to calculate distances, number of cities is "+numberOfCities+", but data given for "+cityDistances.size()+" cities!");
-            return;
-        }
-        for(int i = 0; i < numberOfCities; i++)                                         // Get initial distances to all cities from each city
-        {
-            cityDistances.set(i, listOfCities.get(i).getDistancesToAllCities());
-            if(cityDistances.get(i).size() != numberOfCities)
+            String newCityName = newCity.getCityName();
+            if(mapOfCities.containsKey(newCityName))        // Can't add city if it already exists in the map
+                return false;
+            else
             {
-                System.err.println("Unable to calculate distances, expected "+numberOfCities+" cities, but "+i+"th city has "+cityDistances.get(i).size()+" elements.");
+                newCity.setCityID(mapOfCities.size());      // Assign unique ID to city
+                mapOfCities.put(newCityName, newCity);
+                return true;
             }
         }
-        for(int k = 0; k < numberOfCities; k++)                                         // Perform Floyd Warshall to get shortest paths between all cities
+        catch(Exception E)
+        {
+            System.err.println("Failed to add new City!\n" + E);
+            return false;
+        }
+    }
+    boolean addRoad(String City1Name, String City2Name, int distance)
+    {
+        if( !mapOfCities.containsKey(City1Name) || !mapOfCities.containsKey(City2Name))     // Check for invalid cities
+            return false;
+        try
+        {
+            City City1 = mapOfCities.get(City1Name), City2 = mapOfCities.get(City2Name);
+            City1.setDistanceToCity(City2, distance);
+            City2.setDistanceToCity(City1, distance);
+            return true;
+        }
+        catch(Exception E)
+        {
+            System.err.println("Unable to create road between "+City1Name+" and "+City2Name+"!\n" + E);
+            return false;
+        }
+    }
+    void generateShortestRoutes()
+    {
+        final int numberOfCities = getNumberOfCities();
+        final int noPathExists = 1_000_000_000;                                         // Represent no path by extremely large value
+        ArrayList<ArrayList<Integer>> distances = new ArrayList<>(numberOfCities);      // A 2D vector to store the shortest path from each city to another
+        for(City City1 : mapOfCities.values())
+        {
+            int City1ID = City1.getCityID();
+            ArrayList<Integer> currentCity = new ArrayList<>(numberOfCities);           // Stores the distance from the current city to all other cities
+            for(City City2 : mapOfCities.values())
+            {
+                int City2ID = City2.getCityID();
+                int directRoadDistance = City1.getDistanceToCity(City2);
+                if(City1 == City2)                                                      // Distance from a city to itself is 0
+                    currentCity.set(City2ID, 0);
+                else if(directRoadDistance != -1)                                       // If a direct road exists between the two cities, add it.
+                    currentCity.set(City2ID, directRoadDistance);
+                else
+                    currentCity.set(City2ID, noPathExists);
+            }
+            distances.set(City1ID, currentCity);
+        }
+        for(int k = 0; k < numberOfCities; k++)                                         // Perform Floyd-Warshall to obtain shortest paths between all cities
             for(int i = 0; i < numberOfCities; i++)
                 for(int j = 0; j < numberOfCities; j++)
-                    if(cityDistances.get(i).get(k) + cityDistances.get(k).get(j) < cityDistances.get(i).get(j) )
-                        cityDistances.get(i).set(j, cityDistances.get(i).get(k) + cityDistances.get(k).get(j));
-        for(int i = 0; i < numberOfCities; i++)                                         // Assign shortest distance data to respective cities.
-        {
-            try
+                    if(distances.get(i).get(k) + distances.get(k).get(j) < distances.get(i).get(j))
+                        distances.get(i).set(j, distances.get(i).get(k) + distances.get(k).get(j));
+        for(City City1 : mapOfCities.values())                                          // Iterate over all pairs of cities and set assign the shortest distances between them
+            for(City City2 : mapOfCities.values())
             {
-                listOfCities.get(i).setDistanceToCities(cityDistances.get(i));
+                int City1ID = City1.getCityID();
+                int City2ID = City2.getCityID();
+                int shortestRoadsDistance = distances.get(City1ID).get(City2ID);
+                City1.setDistanceToCity(City2, shortestRoadsDistance);
             }
-            catch(Exception E)
-            {
-                System.err.println("Unable to add shortest distance data for city "+i+"!");
-            }
-        }
     }
 
 }
