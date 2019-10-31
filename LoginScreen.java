@@ -7,6 +7,8 @@ import java.awt.event.WindowEvent;
 public class LoginScreen extends JFrame
 {
     UserList userList;
+    DriverList driverList;
+    Region region;
     //add RegionList
     //add DriverList
     JPanel thePanel;
@@ -14,9 +16,11 @@ public class LoginScreen extends JFrame
     JTextField userIDField;
     JPasswordField passwordField;
     JButton loginButton, newUserButton;
-    LoginScreen(UserList userList)
+    LoginScreen(UserList userList, DriverList driverList, Region region)
     {
         this.userList = userList;
+        this.driverList = driverList;
+        this.region = region;
         this.setTitle("Login");
         this.setSize(640, 480);
         this.addWindowListener(new WindowAdapter() {
@@ -49,7 +53,7 @@ public class LoginScreen extends JFrame
                     {
                         Main.changeWindowCount(true);
                         statusLabel.setText("<html><font color=\"green\">Login successful!</font></html>");
-                        new LoggedInScreen(tempUser);
+                        new LoggedInScreen(tempUser, driverList, region);
                     }
                     else
                     {

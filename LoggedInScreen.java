@@ -9,15 +9,19 @@ import java.util.ArrayList;
 class LoggedInScreen extends JFrame
 {
     private User user;
+    DriverList driverList;
+    Region region;
     private JPanel thePanel;
     private JLabel userInfo, userWalletBalance, sourceLabel, destinationLabel, errorLabel;
     private JComboBox source, destination;
     private JTextField addWalletAmount;
-    private JButton addWalletAmountButton;
-    public LoggedInScreen(User user)
+    private JButton addWalletAmountButton, rideBookButton;
+    public LoggedInScreen(User user, DriverList driverList, Region region)
     {
         //initialize a few variables
         this.user = user;
+        this.driverList = driverList;
+        this.region = region;
         this.setTitle(user.getName() + " - Cab Booking Screen");
         this.setSize(640, 480);
         this.addWindowListener(new WindowAdapter() {
@@ -47,7 +51,7 @@ class LoggedInScreen extends JFrame
         userWalletBalance.setBounds(0, 50, 320, 20);
         //REPLACE WITH REGION.GETARRAYLIST
         ArrayList<String> cities = new ArrayList<>();
-        cities.add("ABC");
+        cities.add("AAA");
         cities.add("DEF");
         cities.add("GHI");
         //END REPLACE
@@ -89,6 +93,34 @@ class LoggedInScreen extends JFrame
             }
         });
         addWalletAmountButton.setBounds(0, 170, 320, 20);
+        rideBookButton = new JButton("Book the ride");
+        rideBookButton.setBounds(320, 130, 320, 20);
+        rideBookButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(!user.getAvailability())
+                {
+                    errorLabel.setText("User is in a ride or booking a ride!");
+                }
+                else
+                {
+                    user.setAvailability(false);
+                    String startCity = source.getSelectedItem().toString();
+                    String endCity = destination.getSelectedItem().toString();
+                    Driver closestDriver = driverList.getClosestDriver(region, startCity);
+                    if(closestDriver == null)
+                    {
+                        errorLabel.setText("No drivers available");
+                        user.setAvailability(true);
+                    }
+                    else
+                    {
+                        Main.changeWindowCount(true);
+                        new ConfirmationScreen(user, closestDriver);
+                    }
+                }
+            }
+        });
         //label to display errors
         errorLabel = new JLabel("");
         errorLabel.setBounds(0, 190, 320, 20);
@@ -102,6 +134,7 @@ class LoggedInScreen extends JFrame
         thePanel.add(addWalletAmount);
         thePanel.add(addWalletAmountButton);
         thePanel.add(errorLabel);
+        thePanel.add(rideBookButton);
         //set panel properties
         this.add(thePanel);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

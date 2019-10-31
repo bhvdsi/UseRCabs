@@ -4,9 +4,10 @@ import java.io.IOException;
 public class Main {
     private static int openWindowCount = 1;
     private static UserList userList;
+    private static Region region;
+    private static DriverList driverList;
     public static void changeWindowCount(boolean newOpened)
     {
-        System.out.println(newOpened);
         if(newOpened)
             openWindowCount++;
         else
@@ -36,6 +37,14 @@ public class Main {
         }
         if(userList == null)
             userList = new UserList();
-        new LoginScreen(userList);
+            driverList = new DriverList();
+            region = new Region();
+        //REMOVE
+        Driver d1 = new Driver("R", 1.1, "AAA","AAA","AAA","AAA");
+        driverList.addUser(d1);
+        City c1 = new City("AAA");
+        region.addCity(c1);
+        //REMOVE
+        new LoginScreen(userList, driverList, region);
     }
 }
