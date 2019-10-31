@@ -32,6 +32,32 @@ public class DataHandler
             System.err.println("Writing of user list to file failed!\n" + writeFailed);
         }
     }
+    void writeDriverList(DriverList toBeWritten) throws IOException
+    {
+        try
+        {
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(driverListFile));
+            output.writeObject(toBeWritten);
+            output.close();
+        }
+        catch(Exception writeFailed)
+        {
+            System.err.println("Writing of driver list to file failed!\n" + writeFailed);
+        }
+    }
+    void writeRegionData(Region toBeWritten) throws IOException
+    {
+        try
+        {
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(regionFile));
+            output.writeObject(toBeWritten);
+            output.close();
+        }
+        catch(Exception writeFailed)
+        {
+            System.err.println("Writing of region data to file failed!\n" + writeFailed);
+        }
+    }
     UserList readUserList() throws IOException, ClassNotFoundException
     {
         UserList newUserList;
