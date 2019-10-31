@@ -13,7 +13,7 @@ public class User implements Serializable
 		this.phoneNumber = phoneNumber;
 		this.emailID = emailID;
 		this.walletBalance = walletBalance;
-		this.available = false;
+		this.available = true;
 	}
 	public String getName()
 	{
