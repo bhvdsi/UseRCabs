@@ -14,7 +14,7 @@ public class DriverList implements java.io.Serializable
             System.err.println("Unable to add driver with car number " + newDriver.getCarNumber() + " to user list!\n" + E);
         }
     }
-    Driver getClosestDriver(Region Cities, String fromRequiredCityName)     // Finds closest driver with the highest rating as well as marks them as busy
+    Driver getClosestDriver(Region Cities, String fromRequiredCityName)     // Finds and returns closest available driver with the highest rating as well as marks them as busy. If no such driver is present, returns null.
     {
         City fromRequiredCity = Cities.getCity(fromRequiredCityName);
         if(fromRequiredCity == null)
@@ -22,13 +22,8 @@ public class DriverList implements java.io.Serializable
             System.err.println("Can't get closest driver! The required reference city "+fromRequiredCityName+" doesn't exist in the cities list!");
             return null;
         }
-        if(listOfDrivers.size() == 0)                       // Sanity check that drivers list has been initialized correctly
-        {
-            System.err.println("Can't get closest driver! No drivers are present in the drivers list!");
-            return null;
-        }
         Driver selectedDriver = null;                       // No driver selected initially
-        int currentBestDistance = 1_000_000_000;            // Values for comparision, initial values don't matter as the selected driver being null is the first condition checked
+        int currentBestDistance = 1_000_000_000;            // Values for comparision, initial values don't matter as values are not checked if the selected driver is null
         double currentBestRating = 0.0;
         for(Driver currentDriver : listOfDrivers)
         {
@@ -55,6 +50,8 @@ public class DriverList implements java.io.Serializable
             else                                                // Free up current driver as he is not our selection
                 currentDriver.setAvailability(true);
         }
+        if(selectedDriver == null)
+            System.err.println("Unable to assign driver, no available drivers are present!");
         return selectedDriver;
     }
 }
