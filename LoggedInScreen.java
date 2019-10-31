@@ -113,10 +113,22 @@ class LoggedInScreen extends JFrame
                         errorLabel.setText("No drivers available");
                         user.setAvailability(true);
                     }
+                    else if(region.getTripCost(startCity, endCity) > user.getWalletBalance() || user.getWalletBalance() < 300)
+                    {
+                        errorLabel.setText("Insufficient wallet balannce!");
+                        user.setAvailability(true);
+                        closestDriver.setAvailability(true);
+                    }
                     else
                     {
                         Main.changeWindowCount(true);
-                        new ConfirmationScreen(user, closestDriver);
+                        new ConfirmationScreen(user, closestDriver, region.getTripCost(startCity, endCity), endCity);
+                        Timer delay = new Timer(region.getTripCost(startCity, endCity) + 1100, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent actionEvent) {
+                                updateBalanceLabel();
+                            }
+                        });
                     }
                 }
             }

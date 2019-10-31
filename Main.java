@@ -6,6 +6,7 @@ public class Main {
     private static UserList userList;
     private static Region region;
     private static DriverList driverList;
+    private static DataHandler dataHandlerObject;
     public static void changeWindowCount(boolean newOpened)
     {
         if(newOpened)
@@ -28,23 +29,39 @@ public class Main {
     public static void main(String[] args)
     {
         try {
-            DataHandler dataHandlerObject = new DataHandler();
-            userList = dataHandlerObject.readUserList();
+            dataHandlerObject = new DataHandler();
         }
         catch(Exception e)
         {
             System.out.println("Could not read database!");
         }
+        try {
+            userList = dataHandlerObject.readUserList();
+        }
+        catch (Exception e)
+        {
+            System.err.println("Couldn't read userList");
+        }
+        try {
+            driverList = dataHandlerObject.readDriverList();
+        }
+        catch (Exception e)
+        {
+            System.err.println("Couldn't read driverList");
+        }
+        try {
+            region = dataHandlerObject.readRegionData();
+        }
+        catch (Exception e)
+        {
+            System.err.println("Couldn't read regionData");
+        }
         if(userList == null)
             userList = new UserList();
+        if(driverList == null)
             driverList = new DriverList();
+        if(region == null)
             region = new Region();
-        //REMOVE
-        Driver d1 = new Driver("R", 1.1, "AAA","AAA","AAA","AAA");
-        driverList.addUser(d1);
-        City c1 = new City("AAA");
-        region.addCity(c1);
-        //REMOVE
         new LoginScreen(userList, driverList, region);
     }
 }

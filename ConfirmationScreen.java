@@ -4,16 +4,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class ConfirmationScreen extends JFrame {
-    User user;
-    Driver driver;
-    JLabel tripDetails;
-    JButton yesButton, noButton;
-    JPanel thePanel;
-    ConfirmationScreen(User user, Driver driver)
+public class ConfirmationScreen extends JFrame{
+    int tripCost;
+    String destination;
+    private User user;
+    private Driver driver;
+    private JLabel tripDetails, errorLabel;
+    private JButton yesButton, noButton;
+    private JPanel thePanel;
+    ConfirmationScreen(User user, Driver driver, int tripCost, String destination)
     {
         this.user = user;
         this.driver = driver;
+        this.tripCost = tripCost;
+        this.destination = destination;
         this.setTitle("Confirm Booking");
         this.setSize(640, 480);
         this.addWindowListener(new WindowAdapter() {
@@ -31,32 +35,62 @@ public class ConfirmationScreen extends JFrame {
                                 + "</html>");
         tripDetails.setBounds(0, 0, 320, 100);
         yesButton = new JButton("Yes");
-        yesButton.setBounds(320, 30, 50, 20);
+        yesButton.setBounds(320, 30, 100, 20);
         yesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ;
+                try
+                {
+                    noButton.setEnabled(false);
+                    yesButton.setEnabled(false);
+                    errorLabel.setText("Trip Successfully Booked!");
+                    Timer delay = new Timer(tripCost, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent actionEvent) {
+                            user.setWalletBalance(user.getWalletBalance() - tripCost);
+                            user.setAvailability(true);
+                            driver.setAvailability(true);
+                            errorLabel.setText("<html><font color=\"green\">Trip successfully ended!</font></html");
+                            Timer delay2 = new Timer(1000, new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent actionEvent) {
+                                    disposeWindow();
+                                }
+                            });
+                            delay2.setRepeats(false);
+                            delay2.start();
+                        }
+                    });
+                    delay.setRepeats(false);
+                    delay.start();
+                }
+                catch (Exception e)
+                {
+                    errorLabel.setText("Error processing trip!");
+                    System.err.println("Error processing trip!");
+                }
             }
         });
         noButton = new JButton("No");
-        noButton.setBounds(320, 60, 50, 20);
+        noButton.setBounds(320, 60, 100, 20);
         noButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 disposeWindow();
             }
         });
+        errorLabel = new JLabel();
+        errorLabel.setBounds(0, 100, 320, 20);
         thePanel.add(tripDetails);
         thePanel.add(yesButton);
         thePanel.add(noButton);
+        thePanel.add(errorLabel);
         this.add(thePanel);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setVisible(true);
     }
     private void disposeWindow()
     {
-        user.setAvailability(true);
-        driver.setAvailability(true);
         this.setVisible(false);
         this.dispose();
     }

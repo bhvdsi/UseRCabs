@@ -3,6 +3,10 @@ import java.util.ArrayList;
 public class DriverList implements java.io.Serializable
 {
     private ArrayList<Driver> listOfDrivers;
+    DriverList()
+    {
+        listOfDrivers = new ArrayList<>();
+    }
     void addUser(Driver newDriver)
     {
         try
