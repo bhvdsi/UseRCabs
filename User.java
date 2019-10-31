@@ -4,7 +4,7 @@ public class User implements Serializable
 {
 	private String name, userID, password, phoneNumber, emailID;
 	private int walletBalance;
-	private boolean busyState;
+	private boolean available;
 	User(String name, String userID, String password, String phoneNumber, String emailID, int walletBalance)
 	{
 		this.name = name;
@@ -13,7 +13,7 @@ public class User implements Serializable
 		this.phoneNumber = phoneNumber;
 		this.emailID = emailID;
 		this.walletBalance = walletBalance;
-		this.busyState = false;
+		this.available = false;
 	}
 	public String getName()
 	{
@@ -47,10 +47,10 @@ public class User implements Serializable
 	}
 	public boolean getAvailability()
 	{
-		return busyState;
+		return available;
 	}
 	public void setAvailability(boolean newState)
 	{
-		busyState = newState;
+		available = newState;
 	}
 }
