@@ -57,6 +57,10 @@ public class Region implements java.io.Serializable
     {
         return mapOfCities.size();
     }
+    City getCity(String CityName)
+    {
+        return mapOfCities.getOrDefault(CityName, null);
+    }
     boolean addCity(City newCity)                           // Add city to the region list
     {
         try
