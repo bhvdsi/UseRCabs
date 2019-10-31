@@ -134,5 +134,19 @@ public class Region implements java.io.Serializable
                 City1.setDistanceToCity(City2, shortestRoadsDistance);
             }
     }
-
+    int getTripCost(String City1Name, String City2Name)
+    {
+        if( !mapOfCities.containsKey(City1Name) || !mapOfCities.containsKey(City2Name))     // Check for invalid cities
+            return -1;
+        try
+        {
+            City City1 = mapOfCities.get(City1Name), City2 = mapOfCities.get(City2Name);
+            return City1.getDistanceToCity(City2);
+        }
+        catch(Exception E)
+        {
+            System.err.println("Unable to get road between "+City1Name+" and "+City2Name+"!\n" + E);
+            return -1;
+        }
+    }
 }
