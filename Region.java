@@ -110,10 +110,14 @@ public class Region implements java.io.Serializable
         final int numberOfCities = getNumberOfCities();
         final int noPathExists = 1_000_000_000;                                         // Represent no path by extremely large value
         ArrayList<ArrayList<Integer>> distances = new ArrayList<>(numberOfCities);      // A 2D vector to store the shortest path from each city to another
+        while(distances.size() < numberOfCities)                                        // Initialize elements to allow us to set elements by index out of order
+            distances.add(new ArrayList<>());
         for(City City1 : mapOfCities.values())
         {
             int City1ID = City1.getCityID();
             ArrayList<Integer> currentCity = new ArrayList<>(numberOfCities);           // Stores the distance from the current city to all other cities
+            while(currentCity.size() < numberOfCities)                                  // Initialize elements to allow us to set elements by index out of order
+                currentCity.add(0);
             for(City City2 : mapOfCities.values())
             {
                 int City2ID = City2.getCityID();
