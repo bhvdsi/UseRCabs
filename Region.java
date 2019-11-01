@@ -61,6 +61,12 @@ public class Region implements java.io.Serializable
     {
         return mapOfCities.getOrDefault(CityName, null);
     }
+    ArrayList<String> getAllCityNames()
+    {
+        ArrayList<String> allCityNames = new ArrayList<>();
+        allCityNames.addAll(mapOfCities.keySet());
+        return allCityNames;
+    }
     boolean addCity(City newCity)                           // Add city to the region list
     {
         try
