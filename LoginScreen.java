@@ -9,8 +9,6 @@ public class LoginScreen extends JFrame
     UserList userList;
     DriverList driverList;
     Region region;
-    //add RegionList
-    //add DriverList
     JPanel thePanel;
     JLabel userIDLabel, passwordLabel, statusLabel;
     JTextField userIDField;

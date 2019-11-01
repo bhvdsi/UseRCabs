@@ -117,13 +117,7 @@ class LoggedInScreen extends JFrame
                     else
                     {
                         Main.changeWindowCount(true);
-                        new ConfirmationScreen(user, closestDriver, region.getTripCost(startCity, endCity), endCity);
-                        Timer delay = new Timer(region.getTripCost(startCity, endCity) + 1100, new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent actionEvent) {
-                                updateBalanceLabel();
-                            }
-                        });
+                        launchConfirmationScreen(user, closestDriver, region, startCity, endCity);
                     }
                 }
             }
@@ -148,7 +142,7 @@ class LoggedInScreen extends JFrame
         this.setVisible(true);
     }
     //function to update and color the userWalletBalance Label
-    private void updateBalanceLabel()
+    public void updateBalanceLabel()
     {
         if(user.getWalletBalance() >= 300) //to set color to green if balance >= 300
             userWalletBalance.setText("<html>Wallet Balance: <font color=\"green\">"
@@ -158,5 +152,9 @@ class LoggedInScreen extends JFrame
             userWalletBalance.setText("<html>Wallet Balance: <font color=\"red\">"
                                             + String.valueOf(user.getWalletBalance())
                                             + "</font></html>");
+    }
+    private void launchConfirmationScreen(User user, Driver closestDriver, Region region, String startCity, String endCity)
+    {
+        new ConfirmationScreen(user, closestDriver, region.getTripCost(startCity, endCity), endCity, this);
     }
 }

@@ -12,12 +12,14 @@ public class ConfirmationScreen extends JFrame{
     private JLabel tripDetails, errorLabel;
     private JButton yesButton, noButton;
     private JPanel thePanel;
-    ConfirmationScreen(User user, Driver driver, int tripCost, String destination)
+    private LoggedInScreen loggedInScreen;
+    ConfirmationScreen(User user, Driver driver, int tripCost, String destination, LoggedInScreen loggedInScreen)
     {
         this.user = user;
         this.driver = driver;
         this.tripCost = tripCost;
         this.destination = destination;
+        this.loggedInScreen = loggedInScreen;
         this.setTitle("Confirm Booking");
         this.setSize(640, 480);
         this.addWindowListener(new WindowAdapter() {
@@ -50,6 +52,7 @@ public class ConfirmationScreen extends JFrame{
                             user.setWalletBalance(user.getWalletBalance() - tripCost);
                             user.setAvailability(true);
                             driver.setAvailability(true);
+                            loggedInScreen.updateBalanceLabel();
                             errorLabel.setText("<html><font color=\"green\">Trip successfully ended!</font></html");
                             Timer delay2 = new Timer(1000, new ActionListener() {
                                 @Override
@@ -76,6 +79,8 @@ public class ConfirmationScreen extends JFrame{
         noButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                user.setAvailability(true);
+                driver.setAvailability(true);
                 disposeWindow();
             }
         });
