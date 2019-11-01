@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-class City                                                  // Define properties of a city
+class City implements Serializable // Define properties of a city
 {
     private String cityName;
     private int cityID;
