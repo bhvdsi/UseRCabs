@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DriverList implements java.io.Serializable
+public class DriverList implements Serializable
 {
     private ArrayList<Driver> listOfDrivers;
     DriverList()

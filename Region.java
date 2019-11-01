@@ -47,7 +47,7 @@ class City implements Serializable // Define properties of a city
         }
     }
 }
-public class Region implements java.io.Serializable
+public class Region implements Serializable
 {
     private TreeMap<String, City> mapOfCities;
     Region()
