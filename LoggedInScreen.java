@@ -49,12 +49,7 @@ class LoggedInScreen extends JFrame
                     + String.valueOf(user.getWalletBalance())
                     + "</font></html>");
         userWalletBalance.setBounds(0, 50, 320, 20);
-        //REPLACE WITH REGION.GETARRAYLIST
-        ArrayList<String> cities = new ArrayList<>();
-        cities.add("AAA");
-        cities.add("DEF");
-        cities.add("GHI");
-        //END REPLACE
+        ArrayList<String> cities = region.getAllCityNames();
         //components to select source
         sourceLabel = new JLabel("<html><font color=\"blue\">Starting Point:</font></html>");
         sourceLabel.setBounds(0, 70, 320, 20);

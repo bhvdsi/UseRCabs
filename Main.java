@@ -62,24 +62,6 @@ public class Main {
             driverList = new DriverList();
         if(region == null)
             region = new Region();
-        //REMOVE
-        City c1, c2, c3;
-        c1 = new City("Kanpur");
-        c2 = new City("Pune");
-        c3 = new City("Amritapuri");
-        region.addCity(c1);
-        region.addCity(c2);
-        region.addCity(c3);
-        region.addRoad("Kanpur", "Pune", 1000);
-        region.addRoad("Pune", "Amritapuri", 2000);
-        region.generateShortestRoutes();
-        try{
-            dataHandlerObject.writeRegionData(region); }
-        catch (Exception e)
-        {
-            System.out.println("XXX");
-        }
-        //REMOVE
         new LoginScreen(userList, driverList, region);
     }
 }
