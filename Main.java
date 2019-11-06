@@ -25,6 +25,7 @@ public class Main {
                 System.err.println("Error could not write userList");
             }
         }
+        System.err.println("XXX");
     }
     public static void main(String[] args)
     {

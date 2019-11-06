@@ -24,6 +24,7 @@ class LoggedInScreen extends JFrame
         this.region = region;
         this.setTitle(user.getName() + " - Cab Booking Screen");
         this.setSize(640, 480);
+        this.setResizable(false);
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {

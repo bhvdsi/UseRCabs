@@ -17,6 +17,7 @@ public class RegistrationScreen extends JFrame
         this.userList = userList;
         this.setTitle("Register New User");
         this.setSize(640, 480);
+        this.setResizable(false);
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {

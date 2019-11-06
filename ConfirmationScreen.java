@@ -22,6 +22,7 @@ public class ConfirmationScreen extends JFrame{
         this.loggedInScreen = loggedInScreen;
         this.setTitle("Confirm Booking");
         this.setSize(640, 480);
+        this.setResizable(false);
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {

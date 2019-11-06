@@ -21,6 +21,7 @@ public class LoginScreen extends JFrame
         this.region = region;
         this.setTitle("Login");
         this.setSize(640, 480);
+        this.setResizable(false);
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
@@ -30,15 +31,15 @@ public class LoginScreen extends JFrame
         });
         thePanel = new JPanel(null);
         userIDLabel = new JLabel("UserID:");
-        userIDLabel.setBounds(0, 0, 320, 20);
+        userIDLabel.setBounds(0, 320+0, 320, 20);
         passwordLabel = new JLabel("Password:");
-        passwordLabel.setBounds(0, 20, 320, 20);
+        passwordLabel.setBounds(0, 320+20, 320, 20);
         userIDField = new JTextField();
-        userIDField.setBounds(320, 0, 320, 20);
+        userIDField.setBounds(320, 320+0, 320, 20);
         passwordField = new JPasswordField();
-        passwordField.setBounds(320, 20, 320, 20);
+        passwordField.setBounds(320, 320+20, 320, 20);
         loginButton = new JButton("Login");
-        loginButton.setBounds(220, 40, 200, 20);
+        loginButton.setBounds(220, 320+40, 200, 20);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -65,7 +66,7 @@ public class LoginScreen extends JFrame
             }
         });
         newUserButton = new JButton("Create New User");
-        newUserButton.setBounds(220, 60, 200, 20);
+        newUserButton.setBounds(220, 320+60, 200, 20);
         newUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent)
@@ -75,7 +76,7 @@ public class LoginScreen extends JFrame
             }
         });
         statusLabel = new JLabel();
-        statusLabel.setBounds(220, 80, 200, 20);
+        statusLabel.setBounds(220, 320+80, 200, 20);
         thePanel.add(userIDLabel);
         thePanel.add(passwordLabel);
         thePanel.add(userIDField);
