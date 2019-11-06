@@ -110,6 +110,8 @@ class LoggedInScreen extends JFrame
                     {
                         errorLabel.setText("Starting and ending points can't be same!");
                         user.setAvailability(true);
+                        if(closestDriver != null)
+                            closestDriver.setAvailability(true);
                     }
                     else if(closestDriver == null)
                     {
