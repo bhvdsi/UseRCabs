@@ -10,7 +10,7 @@ public class LoginScreen extends JFrame
     DriverList driverList;
     Region region;
     JPanel thePanel;
-    JLabel userIDLabel, passwordLabel, statusLabel;
+    JLabel userIDLabel, passwordLabel, statusLabel, cabLogo;
     JTextField userIDField;
     JPasswordField passwordField;
     JButton loginButton, newUserButton;
@@ -31,15 +31,15 @@ public class LoginScreen extends JFrame
         });
         thePanel = new JPanel(null);
         userIDLabel = new JLabel("UserID:");
-        userIDLabel.setBounds(0, 320+0, 320, 20);
+        userIDLabel.setBounds(170, 205, 100, 20);
         passwordLabel = new JLabel("Password:");
-        passwordLabel.setBounds(0, 320+20, 320, 20);
+        passwordLabel.setBounds(170, 205+20, 100, 20);
         userIDField = new JTextField();
-        userIDField.setBounds(320, 320+0, 320, 20);
+        userIDField.setBounds(270, 205, 200, 20);
         passwordField = new JPasswordField();
-        passwordField.setBounds(320, 320+20, 320, 20);
+        passwordField.setBounds(270, 205+20, 200, 20);
         loginButton = new JButton("Login");
-        loginButton.setBounds(220, 320+40, 200, 20);
+        loginButton.setBounds(220, 205+50, 200, 20);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -66,7 +66,7 @@ public class LoginScreen extends JFrame
             }
         });
         newUserButton = new JButton("Create New User");
-        newUserButton.setBounds(220, 320+60, 200, 20);
+        newUserButton.setBounds(220, 205+70, 200, 20);
         newUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent)
@@ -75,8 +75,11 @@ public class LoginScreen extends JFrame
                 new RegistrationScreen(userList);
             }
         });
-        statusLabel = new JLabel();
-        statusLabel.setBounds(220, 320+80, 200, 20);
+        statusLabel = new JLabel("", SwingConstants.CENTER);
+        statusLabel.setBounds(220, 205+90, 200, 20);
+        ImageIcon icon = new ImageIcon("logo.png");
+        cabLogo = new JLabel(icon);
+        cabLogo.setBounds(188, 10, 263, 185);
         thePanel.add(userIDLabel);
         thePanel.add(passwordLabel);
         thePanel.add(userIDField);
@@ -84,6 +87,7 @@ public class LoginScreen extends JFrame
         thePanel.add(loginButton);
         thePanel.add(newUserButton);
         thePanel.add(statusLabel);
+        thePanel.add(cabLogo);
         this.add(thePanel);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);

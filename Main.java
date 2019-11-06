@@ -25,7 +25,7 @@ public class Main {
                 System.err.println("Error could not write userList");
             }
         }
-        System.err.println("XXX");
+        System.err.println(openWindowCount);
     }
     public static void main(String[] args)
     {

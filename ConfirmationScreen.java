@@ -21,7 +21,7 @@ public class ConfirmationScreen extends JFrame{
         this.destination = destination;
         this.loggedInScreen = loggedInScreen;
         this.setTitle("Confirm Booking");
-        this.setSize(640, 480);
+        this.setSize(220, 220);
         this.setResizable(false);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -35,10 +35,13 @@ public class ConfirmationScreen extends JFrame{
                                 + "Name: " + driver.getName()
                                 + "<br>Rating: " + driver.getRating()
                                 + "<br>Phone Number: " + driver.getPhoneNumber()
+                                + "<br>Trip duration: " + (float)tripCost/1000 + " hours"
+                                + "<br>Trip cost: " + tripCost + " rupees"
+                                + "<br><br><font color=\"blue\">Confirm Booking?</font>"
                                 + "</html>");
-        tripDetails.setBounds(0, 0, 320, 100);
+        tripDetails.setBounds(10, 10, 320, 120);
         yesButton = new JButton("Yes");
-        yesButton.setBounds(320, 30, 100, 20);
+        yesButton.setBounds(10, 140, 95, 20);
         yesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -76,7 +79,7 @@ public class ConfirmationScreen extends JFrame{
             }
         });
         noButton = new JButton("No");
-        noButton.setBounds(320, 60, 100, 20);
+        noButton.setBounds(110, 140, 95, 20);
         noButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -85,8 +88,8 @@ public class ConfirmationScreen extends JFrame{
                 disposeWindow();
             }
         });
-        errorLabel = new JLabel();
-        errorLabel.setBounds(0, 100, 320, 20);
+        errorLabel = new JLabel("", SwingConstants.CENTER);
+        errorLabel.setBounds(10, 165, 200, 20);
         thePanel.add(tripDetails);
         thePanel.add(yesButton);
         thePanel.add(noButton);
