@@ -12,7 +12,7 @@ class LoggedInScreen extends JFrame
     DriverList driverList;
     Region region;
     private JPanel thePanel;
-    private JLabel userInfo, userWalletBalance, sourceLabel, destinationLabel, errorLabel;
+    private JLabel userInfo, userWalletBalance, sourceLabel, destinationLabel, errorLabel, addAmountLabel, mapLabel;
     private JComboBox source, destination;
     private JTextField addWalletAmount;
     private JButton addWalletAmountButton, rideBookButton;
@@ -39,7 +39,7 @@ class LoggedInScreen extends JFrame
                                 + "Name: " + user.getName() + "<br>"
                                 + "Email ID: " + user.getEmailID() + "<br>"
                                 + "Phone Number: " + user.getPhoneNumber() + "</html>");
-        userInfo.setBounds(0, 0, 320, 50);
+        userInfo.setBounds(10, 0, 320, 50);
         //label to display user balance
         if(user.getWalletBalance() >= 300)
             userWalletBalance = new JLabel("<html>Wallet Balance: <font color=\"green\">"
@@ -49,22 +49,24 @@ class LoggedInScreen extends JFrame
             userWalletBalance = new JLabel("<html>Wallet Balance: <font color=\"red\">"
                     + String.valueOf(user.getWalletBalance())
                     + "</font></html>");
-        userWalletBalance.setBounds(0, 50, 320, 20);
+        userWalletBalance.setBounds(10, 50, 320, 20);
         ArrayList<String> cities = region.getAllCityNames();
         //components to select source
         sourceLabel = new JLabel("<html><font color=\"blue\">Starting Point:</font></html>");
-        sourceLabel.setBounds(0, 70, 320, 20);
+        sourceLabel.setBounds(10, 70, 320, 20);
         source = new JComboBox(cities.toArray());
-        source.setBounds(0, 90, 320, 20);
+        source.setBounds(10, 90, 200, 20);
         //components to select destination
         destinationLabel = new JLabel("<html><font color=\"blue\">Ending Point:</font></html>");
-        destinationLabel.setBounds(0, 110, 320, 20);
+        destinationLabel.setBounds(10, 110, 320, 20);
         destination = new JComboBox((cities.toArray()));
-        destination.setBounds(0, 130, 320, 20);
+        destination.setBounds(10, 130, 200, 20);
         //components to add money to wallet of user
+        addAmountLabel = new JLabel("<html><font color=\"blue\">Add funds to wallet:</font></html>");
+        addAmountLabel.setBounds(10, 190, 320, 20);
         addWalletAmount = new JTextField(1);
-        addWalletAmount.setBounds(0, 150, 320, 20);
-        addWalletAmountButton = new JButton("Add Amount to Wallet");
+        addWalletAmount.setBounds(10, 210, 200, 20);
+        addWalletAmountButton = new JButton("Add");
         addWalletAmountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -88,15 +90,15 @@ class LoggedInScreen extends JFrame
                 }
             }
         });
-        addWalletAmountButton.setBounds(0, 170, 320, 20);
+        addWalletAmountButton.setBounds(70, 235, 80, 20);
         rideBookButton = new JButton("Book the ride");
-        rideBookButton.setBounds(320, 130, 320, 20);
+        rideBookButton.setBounds(35, 155, 150, 20);
         rideBookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if(!user.getAvailability())
                 {
-                    errorLabel.setText("User is in a ride or booking a ride!");
+                    errorLabel.setText("User is in a ride or is booking a ride!");
                 }
                 else
                 {
@@ -104,14 +106,19 @@ class LoggedInScreen extends JFrame
                     String startCity = source.getSelectedItem().toString();
                     String endCity = destination.getSelectedItem().toString();
                     Driver closestDriver = driverList.getClosestDriver(region, startCity);
-                    if(closestDriver == null)
+                    if(startCity.equals(endCity))
+                    {
+                        errorLabel.setText("Starting and ending points can't be same!");
+                        user.setAvailability(true);
+                    }
+                    else if(closestDriver == null)
                     {
                         errorLabel.setText("No drivers available");
                         user.setAvailability(true);
                     }
                     else if(region.getTripCost(startCity, endCity) > user.getWalletBalance() || user.getWalletBalance() < 300)
                     {
-                        errorLabel.setText("Insufficient wallet balannce!");
+                        errorLabel.setText("Insufficient wallet balance!");
                         user.setAvailability(true);
                         closestDriver.setAvailability(true);
                     }
@@ -124,8 +131,11 @@ class LoggedInScreen extends JFrame
             }
         });
         //label to display errors
-        errorLabel = new JLabel("");
-        errorLabel.setBounds(0, 190, 320, 20);
+        errorLabel = new JLabel("", SwingConstants.CENTER);
+        errorLabel.setBounds(0, 320, 640, 20);
+        ImageIcon icon = new ImageIcon("map.jpg");
+        mapLabel = new JLabel(icon);
+        mapLabel.setBounds(250, 10, 300, 300);
         //add panel components
         thePanel.add(userInfo);
         thePanel.add(userWalletBalance);
@@ -137,6 +147,8 @@ class LoggedInScreen extends JFrame
         thePanel.add(addWalletAmountButton);
         thePanel.add(errorLabel);
         thePanel.add(rideBookButton);
+        thePanel.add(addAmountLabel);
+        thePanel.add(mapLabel);
         //set panel properties
         this.add(thePanel);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
