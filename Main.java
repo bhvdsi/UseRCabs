@@ -2,7 +2,7 @@ import javax.xml.crypto.Data;
 import java.io.IOException;
 
 public class Main {
-    private static int openWindowCount = 1;
+    private static int openWindowCount = 1, windowChangeCount = 1;
     private static UserList userList;
     private static Region region;
     private static DriverList driverList;
@@ -25,7 +25,9 @@ public class Main {
                 System.err.println("Error could not write userList");
             }
         }
-        System.err.println(openWindowCount);
+        windowChangeCount++;
+        if(windowChangeCount%5 == 0)
+            driverList.randomiseDrivers();
     }
     public static void main(String[] args)
     {
@@ -59,10 +61,10 @@ public class Main {
         }
         if(userList == null)
             userList = new UserList();
-        if(driverList == null)
-            driverList = new DriverList();
         if(region == null)
             region = new Region();
+        if(driverList == null)
+            driverList = new DriverList(region);
         new LoginScreen(userList, driverList, region);
     }
 }
