@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.regex.Pattern;
 
 public class RegistrationScreen extends JFrame
 {
@@ -56,10 +57,21 @@ public class RegistrationScreen extends JFrame
                 String iPassword = new String(passwordField.getPassword());
                 String iPhoneNumber = phoneNumberField.getText();
                 String iEmailID = emailIDField.getText();
+                String emailRegex = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
                 if(iName.equals("") || iUserID.equals("") || iPassword.equals("") || iPhoneNumber.equals("") || iEmailID.equals(""))
                     statusBox.setText("<html><font color=\"red\">Please Fill All Fields</font></html>");
                 else if(userList.userExists(iUserID))
                     statusBox.setText("<html><font color=\"red\">User with userID already exists</font></html>");
+                else if(!Pattern.matches("[a-zA-Z ]+", iName) || Pattern.matches("[ ]+", iName))
+                    statusBox.setText("<html><font color=\"red\">Enter a valid name</font></html>");
+                else if(!Pattern.matches("[a-zA-z_0-9]+", iUserID))
+                    statusBox.setText("<html><font color=\"red\">Enter a valid userID</font></html>");
+                else if(!Pattern.matches("[a-zA-z_0-9]+", iPassword))
+                    statusBox.setText("<html><font color=\"red\">Enter a valid password</font></html>");
+                else if(!Pattern.matches("[0-9]{10}", iPhoneNumber))
+                    statusBox.setText("<html><font color=\"red\">Enter a valid Phone Number</font></html>");
+                else if(!Pattern.matches(emailRegex, iEmailID))
+                    statusBox.setText("<html><font color=\"red\">Enter a valid emailID</font></html>");
                 else
                 {
                     User newUser = new User(iName, iUserID, iPassword, iPhoneNumber, iEmailID, 0);
