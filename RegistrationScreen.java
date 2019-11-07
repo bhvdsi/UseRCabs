@@ -16,7 +16,7 @@ public class RegistrationScreen extends JFrame
     {
         this.userList = userList;
         this.setTitle("Register New User");
-        this.setSize(640, 480);
+        this.setSize(400, 230);
         this.setResizable(false);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -27,27 +27,27 @@ public class RegistrationScreen extends JFrame
         });
         thePanel = new JPanel(null);
         nameLabel = new JLabel("Name:");
-        nameLabel.setBounds(0, 0, 320, 20);
+        nameLabel.setBounds(15, 15, 150, 20);
         userIDLabel = new JLabel("UserID:");
-        userIDLabel.setBounds(0, 20, 320, 20);
+        userIDLabel.setBounds(15, 35, 150, 20);
         passwordLabel = new JLabel("Password:");
-        passwordLabel.setBounds(0, 40, 320, 20);
+        passwordLabel.setBounds(15, 55, 150, 20);
         phoneNumberLabel = new JLabel("Phone Number:");
-        phoneNumberLabel.setBounds(0, 60, 320, 20);
+        phoneNumberLabel.setBounds(15, 75, 150, 20);
         emailIDLabel = new JLabel("Email ID: ");
-        emailIDLabel.setBounds(0, 80, 320, 20);
+        emailIDLabel.setBounds(15, 95, 150, 20);
         nameField = new JTextField();
-        nameField.setBounds(320, 0, 320, 20);
+        nameField.setBounds(180, 15, 200, 20);
         userIDField = new JTextField();
-        userIDField.setBounds(320, 20, 320, 20);
+        userIDField.setBounds(180, 35, 200, 20);
         passwordField = new JPasswordField();
-        passwordField.setBounds(320, 40, 320, 20);
+        passwordField.setBounds(180, 55, 200, 20);
         phoneNumberField = new JTextField();
-        phoneNumberField.setBounds(320, 60, 320, 20);
+        phoneNumberField.setBounds(180, 75, 200, 20);
         emailIDField = new JTextField();
-        emailIDField.setBounds(320, 80, 320, 20);
+        emailIDField.setBounds(180, 95, 200, 20);
         createUserButton = new JButton("Create New User");
-        createUserButton.setBounds(220, 110, 200, 20);
+        createUserButton.setBounds(90, 130, 200, 20);
         createUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -68,8 +68,8 @@ public class RegistrationScreen extends JFrame
                 }
             }
         });
-        statusBox = new JLabel();
-        statusBox.setBounds(170, 130, 300, 20);
+        statusBox = new JLabel("", SwingConstants.CENTER);
+        statusBox.setBounds(0, 155, 380, 20);
         thePanel.add(nameLabel);
         thePanel.add(userIDLabel);
         thePanel.add(passwordLabel);
