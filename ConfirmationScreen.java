@@ -55,6 +55,7 @@ public class ConfirmationScreen extends JFrame{
                         public void actionPerformed(ActionEvent actionEvent) {
                             user.setWalletBalance(user.getWalletBalance() - tripCost);
                             user.setAvailability(true);
+                            driver.setLocation(destination);
                             driver.setAvailability(true);
                             loggedInScreen.updateBalanceLabel();
                             errorLabel.setText("<html><font color=\"green\">Trip successfully ended!</font></html");
