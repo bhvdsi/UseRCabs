@@ -3,10 +3,12 @@ import java.util.ArrayList;
 
 public class DriverList implements Serializable
 {
+    Region region;
     private ArrayList<Driver> listOfDrivers;
-    DriverList()
+    DriverList(Region region)
     {
         listOfDrivers = new ArrayList<>();
+        this.region = region;
     }
     void addUser(Driver newDriver)
     {
@@ -58,5 +60,17 @@ public class DriverList implements Serializable
         if(selectedDriver == null)
             System.err.println("Unable to assign driver, no available drivers are present!");
         return selectedDriver;
+    }
+    void randomiseDrivers()
+    {
+        for(Driver currentDriver : listOfDrivers)
+        {
+            if(currentDriver.getAvailability())
+            {
+                currentDriver.setAvailability(false);
+                currentDriver.setLocation(region.getRandomCity());
+                currentDriver.setAvailability(true);
+            }
+        }
     }
 }
