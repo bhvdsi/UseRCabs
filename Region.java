@@ -1,5 +1,7 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.TreeMap;
 
 class City implements Serializable // Define properties of a city
@@ -159,5 +161,13 @@ public class Region implements Serializable
             System.err.println("Unable to get road between "+City1Name+" and "+City2Name+"!\n" + E);
             return -1;
         }
+    }
+    String getRandomCity()
+    {
+        Random random = new Random();
+        List<String> keys = new ArrayList<String>(mapOfCities.keySet());
+        String randomKey = keys.get(random.nextInt(keys.size()));
+        String randomCity = mapOfCities.get(randomKey).getCityName();
+        return randomCity;
     }
 }
