@@ -135,7 +135,7 @@ class LoggedInScreen extends JFrame
         //label to display errors
         errorLabel = new JLabel("", SwingConstants.CENTER);
         errorLabel.setBounds(0, 320, 640, 20);
-        ImageIcon icon = new ImageIcon("map.jpg");
+        ImageIcon icon = new ImageIcon("map.png");
         mapLabel = new JLabel(icon);
         mapLabel.setBounds(250, 10, 300, 300);
         //add panel components
