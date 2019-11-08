@@ -21,7 +21,7 @@ public class ConfirmationScreen extends JFrame{
         this.destination = destination;
         this.loggedInScreen = loggedInScreen;
         this.setTitle("Confirm Booking");
-        this.setSize(220, 220);
+        this.setSize(220, 260);
         this.setResizable(false);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -35,13 +35,15 @@ public class ConfirmationScreen extends JFrame{
                                 + "Name: " + driver.getName()
                                 + "<br>Rating: " + driver.getRating()
                                 + "<br>Phone Number: " + driver.getPhoneNumber()
+                                + "<br>Car Model: " + driver.getCarType()
+                                + "<br>Vehicle ID: " + driver.getCarNumber()
                                 + "<br>Trip duration: " + (float)tripCost/1000 + " hours"
-                                + "<br>Trip cost: " + tripCost + " rupees"
+                                + "<br>Trip cost: " + (int)(1.1*tripCost) + " rupees"
                                 + "<br><br><font color=\"blue\">Confirm Booking?</font>"
                                 + "</html>");
-        tripDetails.setBounds(10, 10, 320, 120);
+        tripDetails.setBounds(10, 10, 320, 160);
         yesButton = new JButton("Yes");
-        yesButton.setBounds(10, 140, 95, 20);
+        yesButton.setBounds(10, 180, 95, 20);
         yesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -53,7 +55,7 @@ public class ConfirmationScreen extends JFrame{
                     Timer delay = new Timer(tripCost, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent actionEvent) {
-                            user.setWalletBalance(user.getWalletBalance() - tripCost);
+                            user.setWalletBalance(user.getWalletBalance() - (int)(1.1*tripCost));
                             user.setAvailability(true);
                             driver.setLocation(destination);
                             driver.setAvailability(true);
@@ -80,7 +82,7 @@ public class ConfirmationScreen extends JFrame{
             }
         });
         noButton = new JButton("No");
-        noButton.setBounds(110, 140, 95, 20);
+        noButton.setBounds(110, 180, 95, 20);
         noButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -90,7 +92,7 @@ public class ConfirmationScreen extends JFrame{
             }
         });
         errorLabel = new JLabel("", SwingConstants.CENTER);
-        errorLabel.setBounds(10, 165, 200, 20);
+        errorLabel.setBounds(10, 205, 200, 20);
         thePanel.add(tripDetails);
         thePanel.add(yesButton);
         thePanel.add(noButton);

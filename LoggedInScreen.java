@@ -118,7 +118,7 @@ class LoggedInScreen extends JFrame
                         errorLabel.setText("No drivers available");
                         user.setAvailability(true);
                     }
-                    else if(region.getTripCost(startCity, endCity) > user.getWalletBalance() || user.getWalletBalance() < 300)
+                    else if((int)(1.1*region.getTripCost(startCity, endCity)) > user.getWalletBalance() || user.getWalletBalance() < 300)
                     {
                         errorLabel.setText("Insufficient wallet balance!");
                         user.setAvailability(true);
