@@ -26,7 +26,7 @@ public class Main {
             }
         }
         windowChangeCount++;
-        if(windowChangeCount%5 == 0)
+        if(windowChangeCount%10 == 0)
             driverList.randomiseDrivers();
     }
     public static void main(String[] args)
