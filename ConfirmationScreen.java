@@ -13,6 +13,7 @@ public class ConfirmationScreen extends JFrame{
     private JButton yesButton, noButton;
     private JPanel thePanel;
     private LoggedInScreen loggedInScreen;
+    private JProgressBar progressBar;
     ConfirmationScreen(User user, Driver driver, int tripCost, String destination, LoggedInScreen loggedInScreen)
     {
         this.user = user;
@@ -21,7 +22,7 @@ public class ConfirmationScreen extends JFrame{
         this.destination = destination;
         this.loggedInScreen = loggedInScreen;
         this.setTitle("Confirm Booking");
-        this.setSize(220, 260);
+        this.setSize(220, 290);
         this.setResizable(false);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -51,6 +52,18 @@ public class ConfirmationScreen extends JFrame{
                 {
                     noButton.setEnabled(false);
                     yesButton.setEnabled(false);
+                    for(int i = 1; i <= 100; i++)
+                    {
+                        int finalI = i;
+                        Timer delay3 = new Timer(tripCost / 100 * i, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent actionEvent) {
+                                progressBar.setValue(finalI);
+                            }
+                        });
+                        delay3.setRepeats(false);
+                        delay3.start();
+                    }
                     errorLabel.setText("Trip Successfully Booked!");
                     Timer delay = new Timer(tripCost, new ActionListener() {
                         @Override
@@ -93,10 +106,16 @@ public class ConfirmationScreen extends JFrame{
         });
         errorLabel = new JLabel("", SwingConstants.CENTER);
         errorLabel.setBounds(10, 205, 200, 20);
+        progressBar = new JProgressBar(0, 100);
+        progressBar.setBounds(10, 230, 200, 20);
+        progressBar.setValue(0);
+        progressBar.setStringPainted(true);
+        progressBar.setBorderPainted(true);
         thePanel.add(tripDetails);
         thePanel.add(yesButton);
         thePanel.add(noButton);
         thePanel.add(errorLabel);
+        thePanel.add(progressBar);
         this.add(thePanel);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setVisible(true);
