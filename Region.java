@@ -66,9 +66,7 @@ public class Region implements Serializable
     }
     ArrayList<String> getAllCityNames()
     {
-        ArrayList<String> allCityNames = new ArrayList<>();
-        allCityNames.addAll(mapOfCities.keySet());
-        return allCityNames;
+        return new ArrayList<String>(mapOfCities.keySet());
     }
     boolean addCity(City newCity)                           // Add city to the region list
     {
@@ -165,7 +163,7 @@ public class Region implements Serializable
     String getRandomCity()
     {
         Random random = new Random();
-        List<String> keys = new ArrayList<String>(mapOfCities.keySet());
+        ArrayList<String> keys = getAllCityNames();
         String randomKey = keys.get(random.nextInt(keys.size()));
         String randomCity = mapOfCities.get(randomKey).getCityName();
         return randomCity;
