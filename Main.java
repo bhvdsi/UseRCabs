@@ -19,6 +19,7 @@ public class Main {
             {
                 DataHandler dataHandlerObject = new DataHandler();
                 dataHandlerObject.writeUserList(userList);
+                dataHandlerObject.writeDriverList(driverList);
             }
             catch (Exception e)
             {

@@ -10,10 +10,12 @@ public class ConfirmationScreen extends JFrame{
     private User user;
     private Driver driver;
     private JLabel tripDetails, errorLabel;
-    private JButton yesButton, noButton;
+    private JButton yesButton, noButton, rateButton;
     private JPanel thePanel;
     private LoggedInScreen loggedInScreen;
     private JProgressBar progressBar;
+    ButtonGroup buttonGroup;
+    JRadioButton r1, r2, r3, r4, r5;
     ConfirmationScreen(User user, Driver driver, int tripCost, String destination, LoggedInScreen loggedInScreen)
     {
         this.user = user;
@@ -73,11 +75,10 @@ public class ConfirmationScreen extends JFrame{
                             driver.setLocation(destination);
                             driver.setAvailability(true);
                             loggedInScreen.updateBalanceLabel();
-                            errorLabel.setText("<html><font color=\"green\">Trip successfully ended!</font></html");
-                            Timer delay2 = new Timer(1000, new ActionListener() {
+                            Timer delay2 = new Timer(100, new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent actionEvent) {
-                                    disposeWindow();
+                                    tripEnded();
                                 }
                             });
                             delay2.setRepeats(false);
@@ -111,6 +112,48 @@ public class ConfirmationScreen extends JFrame{
         progressBar.setValue(0);
         progressBar.setStringPainted(true);
         progressBar.setBorderPainted(true);
+        r1 = new JRadioButton("1");
+        r1.setBounds(10, 0, 40, 20);
+        r2 = new JRadioButton("2");
+        r2.setBounds(50, 0, 40, 20);
+        r3 = new JRadioButton("3");
+        r3.setBounds(90, 0, 40, 20);
+        r4 = new JRadioButton("4");
+        r4.setBounds(130, 0, 40, 20);
+        r5 = new JRadioButton("5");
+        r5.setBounds(170, 0, 40, 20);
+        buttonGroup = new ButtonGroup();
+        buttonGroup.add(r1);
+        buttonGroup.add(r2);
+        buttonGroup.add(r3);
+        buttonGroup.add(r4);
+        buttonGroup.add(r5);
+        rateButton = new JButton("Rate!");
+        rateButton.setBounds(60, 20, 100, 20);
+        rateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                int r = -1;
+                if(r1.isSelected())
+                    r = 1;
+                else if(r2.isSelected())
+                    r = 2;
+                else if(r3.isSelected())
+                    r = 3;
+                else if(r4.isSelected())
+                    r = 4;
+                else if(r5.isSelected())
+                    r = 5;
+                else
+                {
+                    errorLabel.setText("Please select a rating!");
+                }
+                if(r != -1){
+                    driver.updateRating(r);
+                    disposeWindow();
+                }
+            }
+        });
         thePanel.add(tripDetails);
         thePanel.add(yesButton);
         thePanel.add(noButton);
@@ -124,5 +167,24 @@ public class ConfirmationScreen extends JFrame{
     {
         this.setVisible(false);
         this.dispose();
+    }
+    private void tripEnded()
+    {
+        thePanel.remove(tripDetails);
+        thePanel.remove(yesButton);
+        thePanel.remove(noButton);
+        thePanel.remove(progressBar);
+        thePanel.add(r1);
+        thePanel.add(r2);
+        thePanel.add(r3);
+        thePanel.add(r4);
+        thePanel.add(r5);
+        thePanel.add(rateButton);
+        errorLabel.setText("<html><font color=\"green\">Trip successfully ended!"
+                            + "<br>Please rate the trip!</font></html>");
+        errorLabel.setBounds(10, 40, 200, 50);
+        thePanel.revalidate();
+        thePanel.repaint();
+        this.setSize(220, 120);
     }
 }
