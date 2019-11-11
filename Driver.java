@@ -25,7 +25,7 @@ public class Driver implements Serializable
     {
         return rating;
     }
-    private void updateRating(int givenRating)
+    public void updateRating(int givenRating)
     {
         double sumRating = rating * tripCount + givenRating;
         rating = sumRating / ++tripCount;
