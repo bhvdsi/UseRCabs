@@ -34,7 +34,7 @@ public class ConfirmationScreen extends JFrame{
         thePanel = new JPanel(null);
         tripDetails = new JLabel("<html>"
                                 + "Name: " + driver.getName()
-                                + "<br>Rating: " + driver.getRating()
+                                + "<br>Rating: " + String.format("%.2f",driver.getRating())
                                 + "<br>Phone Number: " + driver.getPhoneNumber()
                                 + "<br>Car Model: " + driver.getCarType()
                                 + "<br>Vehicle ID: " + driver.getCarNumber()
