@@ -9,13 +9,14 @@ public class ConfirmationScreen extends JFrame{
     String destination;
     private User user;
     private Driver driver;
-    private JLabel tripDetails, errorLabel;
+    private JLabel tripDetails, errorLabel, starLabel;
     private JButton yesButton, noButton, rateButton;
     private JPanel thePanel;
     private LoggedInScreen loggedInScreen;
     private JProgressBar progressBar;
-    ButtonGroup buttonGroup;
-    JRadioButton r1, r2, r3, r4, r5;
+    private ButtonGroup buttonGroup;
+    private JRadioButton r1, r2, r3, r4, r5;
+    private ImageIcon starIcon;
     ConfirmationScreen(User user, Driver driver, int tripCost, String destination, LoggedInScreen loggedInScreen)
     {
         this.user = user;
@@ -113,15 +114,15 @@ public class ConfirmationScreen extends JFrame{
         progressBar.setStringPainted(true);
         progressBar.setBorderPainted(true);
         r1 = new JRadioButton("1");
-        r1.setBounds(10, 0, 40, 20);
+        r1.setBounds(10, 164, 40, 20);
         r2 = new JRadioButton("2");
-        r2.setBounds(50, 0, 40, 20);
+        r2.setBounds(50, 164, 40, 20);
         r3 = new JRadioButton("3");
-        r3.setBounds(90, 0, 40, 20);
+        r3.setBounds(90, 164, 40, 20);
         r4 = new JRadioButton("4");
-        r4.setBounds(130, 0, 40, 20);
+        r4.setBounds(130, 164, 40, 20);
         r5 = new JRadioButton("5");
-        r5.setBounds(170, 0, 40, 20);
+        r5.setBounds(170, 164, 40, 20);
         buttonGroup = new ButtonGroup();
         buttonGroup.add(r1);
         buttonGroup.add(r2);
@@ -129,7 +130,7 @@ public class ConfirmationScreen extends JFrame{
         buttonGroup.add(r4);
         buttonGroup.add(r5);
         rateButton = new JButton("Rate!");
-        rateButton.setBounds(60, 20, 100, 20);
+        rateButton.setBounds(60, 184, 100, 20);
         rateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -154,6 +155,9 @@ public class ConfirmationScreen extends JFrame{
                 }
             }
         });
+        starIcon = new ImageIcon("star.png");
+        starLabel = new JLabel(starIcon);
+        starLabel.setBounds(35, 10, 150, 144);
         thePanel.add(tripDetails);
         thePanel.add(yesButton);
         thePanel.add(noButton);
@@ -180,11 +184,11 @@ public class ConfirmationScreen extends JFrame{
         thePanel.add(r4);
         thePanel.add(r5);
         thePanel.add(rateButton);
+        thePanel.add(starLabel);
         errorLabel.setText("<html><font color=\"green\">Trip successfully ended!"
                             + "<br>Please rate the trip!</font></html>");
-        errorLabel.setBounds(10, 40, 200, 50);
+        errorLabel.setBounds(10, 204, 200, 50);
         thePanel.revalidate();
         thePanel.repaint();
-        this.setSize(220, 120);
     }
 }
