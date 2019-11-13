@@ -61,6 +61,10 @@ public class RegistrationScreen extends JFrame
                     statusBox.setText("<html><font color=\"red\">Please Fill All Fields</font></html>");
                 else if(userList.userExists(iUserID))
                     statusBox.setText("<html><font color=\"red\">User with userID already exists</font></html>");
+                else if(userList.phoneNumberExists(iPhoneNumber))
+                    statusBox.setText("<html><font color=\"red\">User with phone number already exists</font></html>");
+                else if(userList.emailIDExists(iEmailID))
+                    statusBox.setText("<html><font color=\"red\">User with email ID already exists</font></html>");
                 else if(!Pattern.matches("[a-zA-Z ]+", iName) || Pattern.matches("[ ]+", iName))
                     statusBox.setText("<html><font color=\"red\">Enter a valid name</font></html>");
                 else if(!Pattern.matches("[a-zA-z_0-9]+", iUserID))
