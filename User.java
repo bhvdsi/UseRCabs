@@ -41,9 +41,7 @@ public class User implements Serializable
 	}
 	public boolean checkPassword(String inputPassword)
 	{
-		if(password.equals(inputPassword))
-			return true;
-		return false;
+		return password.equals(inputPassword);
 	}
 	public boolean getAvailability()
 	{

@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.TreeMap;
 
@@ -8,7 +7,7 @@ class City implements Serializable // Define properties of a city
 {
     private String cityName;
     private int cityID;
-    private TreeMap<Integer, Integer> distanceToCities;
+    private TreeMap<Integer, Integer> distanceToCities;     // <CityID, distance>
     City(String cityName)
     {
         this.cityName = cityName;
